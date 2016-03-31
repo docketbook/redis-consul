@@ -1,0 +1,13 @@
+{
+  "consul": "consul.service.dc1.consul:8500",
+  "services": [
+    {
+      "name": "redis",
+      "port": 6379,
+      "interfaces": ["eth0"],
+      "health": "redis-cli PING",
+      "poll": 1,
+      "ttl": 5
+    }
+  ]
+}
