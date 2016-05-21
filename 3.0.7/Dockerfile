@@ -23,7 +23,6 @@ RUN set -x \
 ENV REDIS_VERSION 3.0.7
 ENV REDIS_DOWNLOAD_URL http://download.redis.io/releases/redis-3.0.7.tar.gz
 ENV REDIS_DOWNLOAD_SHA1 e56b4b7e033ae8dbf311f9191cf6fdf3ae974d1c
-ENV CONTAINERBUDDY_VERSION 1.2.1
 
 # for redis-sentinel see: http://redis.io/topics/sentinel
 RUN set -x \
@@ -42,9 +41,9 @@ RUN set -x \
 	&& make -C /usr/src/redis \
 	&& make -C /usr/src/redis install \
 	&& rm -r /usr/src/redis \
-	&& wget -O containerbuddy.tar.gz https://github.com/joyent/containerbuddy/releases/download/"$CONTAINERBUDDY_VERSION"/containerbuddy-"$CONTAINERBUDDY_VERSION".tar.gz \
-	&& tar -xzf containerbuddy.tar.gz -C /usr/local/bin \
-	&& rm -r containerbuddy.tar.gz \
+	&& wget -O containerpilot.tar.gz https://github.com/joyent/containerpilot/releases/download/2.1.2/containerpilot-2.1.2.tar.gz \
+	&& tar -xzf containerpilot.tar.gz -C /usr/local/bin \
+	&& rm -r containerpilot.tar.gz \
 	&& apk del .build-deps
 
 RUN mkdir /data && chown redis:redis /data
@@ -52,7 +51,7 @@ VOLUME /data
 WORKDIR /data
 
 COPY redis-consul.json /etc/redis-consul.json
-ENV CONTAINERBUDDY=file:///etc/redis-consul.json
+ENV CONTAINERPILOT=file:///etc/redis-consul.json
 
 EXPOSE 6379
-ENTRYPOINT [ "/usr/local/bin/containerbuddy", "redis-server"]
+ENTRYPOINT [ "/usr/local/bin/containerpilot", "redis-server"]
