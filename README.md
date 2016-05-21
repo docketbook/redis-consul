@@ -1,7 +1,11 @@
 # redis-consul - Self-Registering Redis Container
 
+## Available Tags
+
+* ```3.0.7```,```latest``` (3.0.7/Dockerfile)
+
 ## Description
-This image contains a compiled version of Redis 3.0.7 installed into Alpine Linux. It is accompanied by Containerpilot, which handles health checks and Consul registration. The Redis data is stored at ```/data``` which is designated as a volume.
+This image contains a compiled version of Redis installed into Alpine Linux. It is accompanied by Containerpilot, which handles health checks and Consul registration. The Redis data is stored at ```/data``` which is designated as a volume.
 
 ## Environment Variables
 This image can utilise the following variables
