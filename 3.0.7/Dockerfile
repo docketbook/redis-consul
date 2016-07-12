@@ -10,7 +10,8 @@ RUN set -x \
 	&& apk del .build-deps
 
 COPY redis-consul.json /etc/redis-consul.json
+COPY redis.conf /usr/local/etc/redis/redis.conf
 ENV CONTAINERPILOT=file:///etc/redis-consul.json
 
 EXPOSE 6379
-ENTRYPOINT [ "/usr/local/bin/containerpilot", "redis-server"]
+ENTRYPOINT [ "/usr/local/bin/containerpilot", "redis-server", "/usr/local/etc/redis/redis.conf"]
