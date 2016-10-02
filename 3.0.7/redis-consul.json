@@ -1,5 +1,5 @@
 {
-  "consul": "{{.CONSUL_ADDRESS}}",
+  "consul": "localhost:8500",
   "services": [
     {
       "name": "redis",
@@ -12,5 +12,18 @@
         "{{.CONSUL_ENVIRONMENT}}"
       ]
     }
-  ]
+  ],
+    "coprocesses":[{
+      "command": [
+            "consul", 
+            "agent",
+            "-data-dir=/consul-data",
+            "-config-dir=/config",
+            "-rejoin",
+            "-retry-join", "{{ .CONSUL_ADDRESS }}",
+            "-retry-max", "10",
+            "-retry-interval", "10s"
+        ],
+    "restarts": "unlimited"
+    }]
 }
